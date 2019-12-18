@@ -8,17 +8,6 @@ const mongoose = require('mongoose')
 
 console.log('connecting to', config.MONGODB_URI)
 
-/*
-const blogSchema = mongoose.Schema({
-  title: String,
-  author: String,
-  url: String,
-  likes: Number
-})
-
-const Blog = mongoose.model('Blog', blogSchema)
-*/
-
 mongoose.connect(config.MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true })
     .then(() => {
         console.log('connected to MongoDB')
