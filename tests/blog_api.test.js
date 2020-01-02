@@ -4,6 +4,7 @@ const app = require('../app')
 const api = supertest(app)
 
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 const initialBlogs = [
     {
@@ -19,6 +20,10 @@ const initialBlogs = [
         likes: 5
     }
 ]
+
+beforeAll(async () => {
+    await User.deleteMany({})
+})
 
 beforeEach(async () => {
     await Blog.deleteMany({})
@@ -109,6 +114,67 @@ test('new blog must contain title and url', async () => {
     await api
         .post('/api/blogs')
         .send(newBlog)
+        .expect(400)
+})
+
+test('new user can be added', async () => {
+    const newUser = {
+        username: 'testuser1',
+        name: 'test user',
+        password: 'test'
+    }
+
+    await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(201)
+        .expect('Content-Type', /application\/json/)
+
+    const response = await api.get('/api/users')
+
+    const username = response.body.map(r => r.username)
+
+    expect(username).toContain(
+        'testuser1'
+    )
+})
+
+test('username with less than 3 characters is not accepted', async () => {
+    const newUser = {
+        username: 'ts',
+        name: 'too short',
+        password: '1234'
+    }
+
+    await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(400)
+})
+
+test('password with less than 3 characters is not accepted', async () => {
+    const newUser = {
+        username: 'test2',
+        name: 'too short',
+        password: '12'
+    }
+
+    await api
+        .post('/api/users')
+        .send(newUser)
+        .expect(400)
+})
+
+test('username must be unique', async () => {
+    const newUser = {
+        username: 'testuser1',
+        name: 'not unique',
+        password: '12345'
+    }
+
+    await api
+        .post('/api/users')
+        .send(newUser)
         .expect(400)
 })
 
