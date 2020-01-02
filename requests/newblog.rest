@@ -3,8 +3,8 @@ Content-Type: application/json
 Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6Im1hc2ExIiwiaWQiOiI1ZGZiZDJmYzM0YjQxNDBkYzRiZjljM2IiLCJpYXQiOjE1Nzc5NjM2MTB9.KtGle7bDwFuwReUgrDv1KhuY5uR0IjttpBBTB9HhIhw
 
 {
-    "title": "testblog1231424", 
-    "author": "Aku Ankka",
+    "title": "tTEST", 
+    "author": "e1343141",
     "url": "aaepogkeop",
     "userId": "5dfada471c9d4400004f0b1c"
 }
